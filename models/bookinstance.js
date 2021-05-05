@@ -1,6 +1,7 @@
 'use strict';
 
 
+const { DateTime } = require('luxon');
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
@@ -39,6 +40,9 @@ BookInstanceSchema.virtual('url').get(function () {
 });
 
 
+BookInstanceSchema.virtual('due_date_formatted').get(function () {
+	return DateTime.fromJSDate(this.due_date).toLocaleString(DateTime.DATE_MED);
+});
 
 
 
