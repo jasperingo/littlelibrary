@@ -31,12 +31,8 @@ AuthorSchema.virtual('name').get(function () {
 	return this.family_name+', '+this.first_name;
 });
 
-AuthorSchema.virtual('lifespan').get(function () {
-	return (this.date_of_death.getYear()-this.date_of_birth.getYear()).toString();
-});
-
 AuthorSchema.virtual('url').get(function () {
-	return 'catalog/author/' + this._id;
+	return '/catalog/author/' + this._id;
 });
 
 AuthorSchema.virtual('date_of_birth_formatted').get(function () {
@@ -45,6 +41,13 @@ AuthorSchema.virtual('date_of_birth_formatted').get(function () {
 
 AuthorSchema.virtual('date_of_death_formatted').get(function () {
 	return this.date_of_death ? DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED) : '';
+});
+
+AuthorSchema.virtual('lifespan').get(function () {
+	var date = '';
+	date = this.date_of_birth_formatted;
+	if (this.date_of_death_formatted) date += ' - '+this.date_of_death_formatted;
+	return date;
 });
 
 
