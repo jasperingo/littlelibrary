@@ -44,6 +44,10 @@ BookInstanceSchema.virtual('due_date_formatted').get(function () {
 	return DateTime.fromJSDate(this.due_date).toLocaleString(DateTime.DATE_MED);
 });
 
+BookInstanceSchema.statics.getStatuses = function() {
+	return ['Available', 'Maintenance', 'Loaned', 'Reserved'];
+}
+
 
 
 module.exports = mongoose.model('BookInstance', BookInstanceSchema);
